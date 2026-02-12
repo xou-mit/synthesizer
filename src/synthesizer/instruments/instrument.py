@@ -255,6 +255,7 @@ class Instrument:
         # Check we have a compatible noise definition
         have_noise = self.noise_maps is not None
         have_noise |= self.snrs is not None and self.depth is not None
+        have_noise |= getattr(self, "noise_stds", None) is not None
 
         return self.can_do_imaging and have_noise
 
@@ -286,6 +287,7 @@ class Instrument:
         # Check we have a compatible noise definition
         have_noise = self.noise_maps is not None
         have_noise |= self.snrs is not None and self.depth is not None
+        have_noise |= getattr(self, "noise_stds", None) is not None
 
         return self.can_do_spectroscopy and have_noise
 

@@ -1262,6 +1262,10 @@ class Component(ABC):
                         aperture_radius=instrument.depth_aperture_radius,
                     )
                 )
+            elif getattr(instrument, "noise_stds", None) is not None:
+                self.images_noise_lnu[instrument.label][key] = (
+                    imgs.apply_noise_from_stds(instrument.noise_stds)
+                )
             else:
                 raise exceptions.InconsistentArguments(
                     f"Instrument ({instrument.label}) cannot be used "
@@ -1339,6 +1343,10 @@ class Component(ABC):
                         depths=instrument.depth,
                         aperture_radius=instrument.depth_aperture_radius,
                     )
+                )
+            elif getattr(instrument, "noise_stds", None) is not None:
+                self.images_noise_fnu[instrument.label][key] = (
+                    imgs.apply_noise_from_stds(instrument.noise_stds)
                 )
             else:
                 raise exceptions.InconsistentArguments(
